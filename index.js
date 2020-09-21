@@ -7,10 +7,10 @@ const db_url = process.env.db_url;
 let port = process.env.port;
 
 const mongooseOptions = {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true,
 };
 
 mongoose.connect(db_url, mongooseOptions);
