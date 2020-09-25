@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -10,7 +11,7 @@ app.use(bodyParser.urlencoded({
   extended: false,
 }));
 
-
+app.use(cors());
 app.all('/', (req, res) => {
   res.status(200).send({ msg: 'Hello World!' });
 });
