@@ -4,7 +4,13 @@ const bodyParser = require('body-parser');
 
 const authRouter = require('./auth/router');
 
+
 const app = express();
+app.use(express.static('./public'));
+
+
+app.set('view engine', 'ejs');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -13,7 +19,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(cors());
 app.all('/', (req, res) => {
-  res.status(200).send({ msg: 'Hello World!' });
+  res.render('index');
 });
 
 app.use('/', authRouter);

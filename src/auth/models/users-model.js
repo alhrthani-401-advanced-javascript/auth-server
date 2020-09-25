@@ -4,13 +4,15 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 const schema = mongoose.Schema({
-  username: { type: String, required: true, unique: true },
+  username: { type: String, required: true },
   password: { type: String, required: true },
+  role: { type: String, enum: ['admin', 'editor', 'writer', 'user'] },
 });
 
 schema.plugin(uniqueValidator);
 
 schema.pre('save', async function(next) {
+  console.log('hash password called');
   this.password = await bcrypt.hash(this.password, 5);
   next();
 });

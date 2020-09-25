@@ -6,6 +6,9 @@ const basicAuth = require('./middleware/basic');
 
 const UserSchema = require('./models/users-model');
 
+const oauth = require('./middleware/oauth.js');
+
+
 router.get('/users', async(req, res) => {
   const data = await UserSchema.find({});
   res.status(200).send({ data });
@@ -18,6 +21,17 @@ router.post('/signup', async(req, res) => {
   console.log('new user has been added, Details:', data);
   res.status(200).send({ data });
 });
+
+
+router.get('/oauth', oauth, (req, res) => {
+  console.log('req.query.code>>>>', req.query.code);
+  console.log('req.user>>>>', req.user);
+  console.log('req.token>>>>', req.token);
+
+  res.status(200).send(req.token);
+});
+
+
 
 router.post('/signin', basicAuth, async(req, res) => {
   const { user, isValid } = req;
