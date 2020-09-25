@@ -15,6 +15,7 @@ router.post('/signup', async(req, res) => {
   // console.log('req.body>>>>', req.body);
   const newUser = new UserSchema(req.body);
   const data = await newUser.save();
+  console.log('new user has been added, Details:', data);
   res.status(200).send({ data });
 });
 
