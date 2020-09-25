@@ -17,6 +17,7 @@ module.exports = async(req, res, next) => {
     const { isValid, user } = await authUser.authenticateUser();
     req.isValid = isValid;
     req.user = user;
+
     next();
   } else { next('Invalid Login!! '); }
 };
