@@ -32,6 +32,37 @@ schema.methods.generateToken = async function() {
   return token;
 };
 
+schema.methods.authenticateToken = async function(token) {
+  try {
+    let tokenObject = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    console.log('tokenObject -----> ', tokenObject);
+    const userNameFromObject = tokenObject.username;
+    console.log({ userNameFromObject });
+    const username = await this.constructor.findOne({ username: userNameFromObject });
+    console.log({ username });
+    if (username) {
+      return Promise.resolve({
+        tokenObject: tokenObject,
+        user: username,
+      });
+    } else {
+      return Promise.reject();
+    }
+  } catch (e) {
+    return Promise.reject();
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
 module.exports = mongoose.model('users', schema); // collection 
 
 
